@@ -61,11 +61,17 @@ export default {
             userMessage(){
                 this.form.post('/userMessage')
                     .then((response)=>{
-                        console.log(response.data.data)
+                        
+              this.form.name='',
+               this.form.email='',
+                this.form.subject='',
+                this.form.message='',
                       toast.fire({
             icon: 'success',
             title: 'Message sent '
             })
+
+       
                     })
                     .catch(()=>{
 

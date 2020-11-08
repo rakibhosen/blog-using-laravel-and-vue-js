@@ -10,12 +10,22 @@ use Illuminate\Http\Request;
 class BlogPostController extends Controller
 {
    public function BlogPost(){
-    $blog = Post::with('category','user')->orderBy('id','desc')->get();
+    // $users = DB::table('users')->paginate(15);
+    $blog = Post::with('category','user')->latest()->paginate(4);
     return response()->json([
         'data'=>$blog,
         'success'=>true,
      ]);
     }
+
+    // public function searchPost(){
+    //     // $users = DB::table('users')->paginate(15);
+    //     $blog = Post::with('category','user')->latest()->get();
+    //     return response()->json([
+    //         'data'=>$blog,
+    //         'success'=>true,
+    //      ]);
+    //     }
 
 
     public function SingleBlog($id){
@@ -49,7 +59,7 @@ class BlogPostController extends Controller
         $posts = Post::with('user','category')
         ->where('title','LIKE',"%$search%")
         ->orWhere('description','LIKE',"%$search%")
-        ->get();
+        ->paginate(2);;
         return response()->json([
             'data'=>$posts,
             'success'=>true,

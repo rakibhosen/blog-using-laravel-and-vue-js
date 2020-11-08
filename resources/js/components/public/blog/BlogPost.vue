@@ -6,16 +6,27 @@
         <div class="row">
           <div class="span8">
 
-           
-             <div v-if="getBlogPost.length>0">
-            <article v-for="(blog, index) in getBlogPost" :key="blog.id" v-if="index<4">
+<!-- {{ getBlogPost.total }} -->
+             <div v-if="getBlogPost.data.length>0">
+         
+   <el-pagination       
+    background
+    @current-change="handleCurrentChange"
+    :current-page.sync="currentPage"
+    :page-size="getBlogPost.per_page"
+    layout="prev, pager, next"
+    :total="getBlogPost.total">
+</el-pagination>
+
+            <article v-for="(blog, index) in getBlogPost.data" :key="blog.id" v-if="index<4">
+             
               <div class="row">
                 <div class="span8">
                   <div class="post-image">
                     <div class="post-heading">
                       <h3><a href="#">{{ blog.title }}</a></h3>
                     </div>
-               <img :src="ourImage(blog.photo)" alt="Blog photo">
+               <img :src="ourImage(blog.photo)" alt="Blog photo" id="blog_img">
                   </div>
                   <p>
                    
@@ -34,15 +45,16 @@
                 </div>
               </div>
             </article>
-     
-            
-            <div id="pagination">
+    
+            <!-- <div id="pagination">
               <span class="all">Page 1 of 3</span>
               <span class="current">1</span>
               <a href="#" class="inactive">2</a>
               <a href="#" class="inactive">3</a>
-            </div>
+            </div> -->
       </div>
+
+
             <div v-else>
              <p class="alert alert-info text-center">Sorry no post found</p>
             </div>
@@ -59,13 +71,18 @@
 
 export default {
         name: "BlogPost",
+        data(){
+          return{
+            currentPage:1,
+          }
+        },
 
         components:{
           BlogSidebar,
         },
 
   mounted(){
-     this.$store.dispatch('BlogPost');
+     this.$store.dispatch('BlogPost',this.currentPage);
   },
 
 
@@ -76,16 +93,22 @@ return this.$store.getters.BlogPost
 },
 methods:{
 getAllCategoryPost(){
-if(this.$route.params.id!=null){
-this.$store.dispatch('getCategoryPost',this.$route.params.id);
-}else{
-this.$store.dispatch('BlogPost');
+  if(this.$route.params.id!=null){
+  this.$store.dispatch('getCategoryPost',this.$route.params.id);
+  }else{
+  this.$store.dispatch('BlogPost');
+  }
+
+  },
+  ourImage(img){
+            return "uploadimage/"+img;
+        }, 
+
+handleCurrentChange(){
+ this.$store.dispatch('BlogPost',this.currentPage);
 }
 
-},
-ourImage(img){
-          return "uploadimage/"+img;
-      }, 
+
 },
 watch:{
 $route(to,from){

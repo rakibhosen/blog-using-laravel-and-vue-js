@@ -44,8 +44,8 @@ export default{
          })
         },
 
-       BlogPost(contex){
-          axios.get('/blog')
+       BlogPost(contex,payload){
+          axios.get('/blog/?page='+payload)
           .then((response)=>{
             
             contex.commit('BlogPost',response.data.data)

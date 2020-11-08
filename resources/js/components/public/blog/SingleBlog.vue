@@ -12,7 +12,7 @@
                     <div class="post-heading">
                       <h3><a href="#">{{ singlepost.title }}</a></h3>
                     </div>
-                  <img :src="`uploadimage/${singlepost.photo}`" alt="" />
+                  <img :src="`uploadimage/${singlepost.photo}`" alt="" id="blog_img"/>
                   </div>
                   <p>
                     {{ singlepost.description }}

@@ -1,8 +1,12 @@
 require('./bootstrap');
 window.Vue = require('vue');
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
+
 // pagination support
-Vue.component('pagination', require('laravel-vue-pagination'))
+// Vue.component('pagination', require('laravel-vue-pagination'));
 // support markdown
 import 'v-markdown-editor/dist/v-markdown-editor.css';
 import Editor from 'v-markdown-editor'

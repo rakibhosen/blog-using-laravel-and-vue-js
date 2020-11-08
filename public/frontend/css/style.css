@@ -717,7 +717,14 @@ section.callaction {
 /* ===================================
 9. Section: Bottom
 ==================================== */
-
+#sidebar_img{
+  height: 70px!important;
+}
+#blog_img{
+  min-height: 250px!important;
+  max-height: 300px!important;
+  width:100%!important;
+}
 #bottom {
   background: #fcfcfc;
   padding: 50px 0 0;

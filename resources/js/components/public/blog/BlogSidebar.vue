@@ -22,8 +22,8 @@
                 <h5 class="widgetheading">Latest posts</h5>
                 <ul class="recent">
                    <!-- <li v-for="(post,index) in blogpost"  v-if="index<5"> -->
-                  <li v-for="(post,index) in getBlogPost"  v-if="index<5">
-                  <img :src="ourImage(post.photo)" alt="" class="pull-left">
+                  <li v-for="(post,index) in getBlogPost.data"  v-if="index<5">
+                  <img :src="ourImage(post.photo)" alt="" class="pull-left" id="sidebar_img">
                     <h6><router-link :to="`/blog/${post.id}`">{{post.title}}</router-link></h6>
                     <p>
                       {{ post.description | sortlength(60,"...") }}
