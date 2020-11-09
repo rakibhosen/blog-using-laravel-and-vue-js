@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\PostCreated;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -15,7 +16,11 @@ class Post extends Model
       }
 
       public function comments(){
-        return  $this->hasMany(User::class);
+        return  $this->hasMany(Comment::class,'post_id');
       }
+
+      protected $dispatchesEvents = [
+        'created' => PostCreated::class //When a post is created then this Event will be fired
+      ];
 }
 

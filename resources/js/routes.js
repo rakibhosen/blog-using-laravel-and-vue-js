@@ -14,8 +14,8 @@ import About from './components/public/about/About'
 
 
 export const routes = [
-  // category route
-    { path: '/home', component: adminHome },
+  // admin route
+    { path: '/dashboard', component: adminHome },
     { path: '/category-list', component: categoryList },
     { path: '/category-create', component: categoryCreate },
     { path: '/category-edit/:categoryid', component: categoryEdit },

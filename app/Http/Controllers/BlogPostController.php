@@ -6,26 +6,33 @@ use App\Category;
 use App\Contact;
 use App\Post;
 use Illuminate\Http\Request;
+use cache;
 
 class BlogPostController extends Controller
 {
    public function BlogPost(){
-    // $users = DB::table('users')->paginate(15);
-    $blog = Post::with('category','user')->latest()->paginate(4);
-    return response()->json([
+    // $blog = Post::with('category','user')->latest()->paginate(4);
+    // return response()->json([
+    //     'data'=>$blog,
+    //     'success'=>true,
+    //  ]);
+
+
+
+
+
+     $blog = cache('posts', function () {
+        return Post::with('user', 'category')->withCount('comments')->latest()->paginate(4);
+    });
+        return response()->json([
         'data'=>$blog,
         'success'=>true,
      ]);
+
+
     }
 
-    // public function searchPost(){
-    //     // $users = DB::table('users')->paginate(15);
-    //     $blog = Post::with('category','user')->latest()->get();
-    //     return response()->json([
-    //         'data'=>$blog,
-    //         'success'=>true,
-    //      ]);
-    //     }
+
 
 
     public function SingleBlog($id){

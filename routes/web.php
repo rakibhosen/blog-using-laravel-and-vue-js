@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin', 'HomeController@index')->name('home');
 
 //public route
 Route::get('/blog', 'BlogPostController@BlogPost')->name('blog');
@@ -28,6 +28,9 @@ Route::get('/categories', 'BlogPostController@getCategories');
 Route::get('/categorypost/{id}', 'BlogPostController@getPostById');
 Route::get('/search', 'BlogPostController@RealSearch');
 Route::post('/userMessage', 'BlogPostController@UserMessage');
+// comment post route
+Route::post('/addcomment', 'CommentController@addComment');
+Route::get('/postcomment/{id}', 'CommentController@allComments');
 
 
 

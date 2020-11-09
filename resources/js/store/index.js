@@ -4,7 +4,8 @@ export default{
         post:[],
         BlogPost:[],
         SinglePost:[],
-        categories:[]
+        categories:[],
+        comments:[]
     },
     getters:{
         getCategory(state){
@@ -21,6 +22,9 @@ export default{
         },
         SinglePost(state){
           return state.SinglePost
+        },
+        PostComments(state){
+          return state.comments;
         }
     },
     actions:{
@@ -75,6 +79,14 @@ export default{
             contex.commit('RealSearch',response.data.data)
           })
          },
+
+         PostComment(contex,payload){
+          axios.get('/postcomment/'+payload)
+          .then((response)=>{
+            console.log('allcomment',response.data.data)
+            contex.commit('comments',response.data.data)
+          })
+         },
     },
 
     mutations:{
@@ -99,7 +111,10 @@ export default{
       },
       RealSearch(state,data){
         return  state.BlogPost = data;
-      }
+      },
+      comments(state,data){
+        return state.comments = data
+      },
 
     }
     

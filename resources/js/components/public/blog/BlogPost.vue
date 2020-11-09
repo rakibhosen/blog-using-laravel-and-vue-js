@@ -37,7 +37,7 @@
                       <li><i class="icon-calendar"></i><a href="#"> {{blog.created_at | timeFormat }}</a></li>
                       <li v-if="blog.user"><i class="icon-user"></i><a href="#">{{blog.user.name}}</a></li>
                       <li><i class="icon-folder-open"></i><a href="#">{{blog.category.cat_name}}</a></li>
-                      <li><i class="icon-comments"></i><a href="#">4 Comments</a></li>
+                      <li><i class="icon-comments"></i> <router-link :to="`/blog/${blog.id}`">{{ blog.comments_count }} Comments</router-link></li>
                     </ul>
                     <!-- <router-link :to="`/post-edit/${post.id}`" class="btn btn-info color-white">Edit</router-link> -->
                     <router-link :to="`/blog/${blog.id}`" class="pull-right">Continue reading <i class="icon-angle-right"></i></router-link>
@@ -89,7 +89,10 @@ export default {
 computed:{
 getBlogPost(){
 return this.$store.getters.BlogPost
-}
+},
+    allComments(){
+      return this.$store.getters.PostComments
+    }
 },
 methods:{
 getAllCategoryPost(){

@@ -6,13 +6,21 @@ use App\Post;
 use Illuminate\Http\Request;
 use Auth;
 use Image;
+use cache;
 
 class PostController extends Controller
 {
     public function get_post()
     {
-        $posts = Post::with('category', 'user')->orderBy('id', 'desc')->get();
-        return response()->json([
+        // $posts = Post::with('category', 'user')->orderBy('id', 'desc')->get();
+        // return response()->json([
+        //     'data' => $posts,
+        // ]);
+        
+        $posts = cache('posts', function () {
+            return Post::with('user', 'category')->latest()->get();
+        });
+          return response()->json([
             'data' => $posts,
         ]);
     }
